@@ -1,0 +1,14 @@
+---
+intellij_idea_url_edition: "IC"
+intellij_idea_url_version: "2022.2.3"
+intellij_idea_url: "https://download.jetbrains.com/idea/idea{{ intellij_idea_url_edition }}-{{ intellij_idea_url_version }}.tar.gz"
+
+intellij_idea_user: "{{ ansible_user_id }}"
+
+intellij_naming_map:
+  IC:
+    name: "IntelliJ IDEA Community Edition"
+    comment: Capable and Ergonomic IDE for JVM
+  UC:
+    name: "IntelliJ IDEA Ultimate Edition"
+    comment: Capable and Ergonomic IDE for JVM

@@ -1,0 +1,63 @@
+---
+- name: Download IntelliJ IDEA
+  become: true
+  ansible.builtin.get_url:
+    url: "{{ intellij_idea_url }}"
+    dest: /tmp/idea{{ intellij_idea_url_edition }}-{{ intellij_idea_url_version }}.tar.gz
+    mode: 0644
+    owner: root
+    group: root
+
+- name: Ensure /opt/idea exists
+  become: true
+  ansible.builtin.file:
+    path: /opt/idea
+    state: directory
+    mode: 0755
+    owner: root
+    group: root
+
+- name: Extract IntelliJ IDEA to /opt
+  become: true
+  ansible.builtin.unarchive:
+    src: /tmp/idea{{ intellij_idea_url_edition }}-{{ intellij_idea_url_version }}.tar.gz
+    dest: /opt/idea
+    remote_src: true
+    extra_opts:
+      - --strip-components=1
+
+- name: Create desktop entry
+  become: true
+  ansible.builtin.template:
+    src: intellij_idea.desktop.j2
+    dest: /usr/share/applications/intellij_idea.desktop
+    mode: 0644
+    owner: root
+    group: root
+
+- name: Create idea shell script
+  become: true
+  ansible.builtin.copy:
+    src: idea
+    dest: /usr/local/bin/idea
+    mode: 0755
+    owner: root
+    group: root
+
+- name: Ensure plugins directory exists
+  become: true
+  become_user: "{{ intellij_idea_user }}"
+  ansible.builtin.file:
+    path: "~/.local/share/JetBrains/Idea{{ intellij_idea_url_edition }}{{ intellij_idea_url_version | regex_search('\\d{1,}\\.\\d{1,}') }}/"
+    state: directory
+    mode: 0755
+    owner: "{{ intellij_idea_user }}"
+    group: "{{ intellij_idea_user }}"
+  when: intellij_idea_plugins is defined
+
+- name: Import task to install plugin
+  include_tasks: install_plugin.yml
+  when: intellij_idea_plugins is defined
+  loop: "{{ intellij_idea_plugins }}"
+  loop_control:
+    loop_var: intellij_idea_plugin

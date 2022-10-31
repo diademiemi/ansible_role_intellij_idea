@@ -1,0 +1,21 @@
+- name: Get latest version of plugin
+  become: true
+  ansible.builtin.uri:
+    url: https://plugins.jetbrains.com/api/plugins/{{ intellij_idea_plugin }}/updates
+  register: intellij_idea_plugin_version
+  changed_when: false
+
+- name: Download plugin
+  become: true
+  ansible.builtin.get_url:
+    url: "https://plugins.jetbrains.com/files/{{ intellij_idea_plugin_version.json[0].file }}"
+    dest: "/tmp/intellij-plugin-{{ intellij_idea_plugin }}.zip"
+    mode: 0644
+
+- name: Extract plugin to directory
+  become: true
+  become_user: "{{ intellij_idea_user }}"
+  ansible.builtin.unarchive:
+    src: "/tmp/intellij-plugin-{{ intellij_idea_plugin }}.zip"
+    dest: "~/.local/share/JetBrains/Idea{{ intellij_idea_url_edition }}{{ intellij_idea_url_version | regex_search('\\d{1,}\\.\\d{1,}') }}/"
+    remote_src: true
