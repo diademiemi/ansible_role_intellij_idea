@@ -20,9 +20,9 @@ Plugins are installer per-user, so you will need to give `intellij_idea_user`, t
 | `intellij_idea_url` | See [defaults/main.yml](./defaults/main.yml) | Base URL for the IntelliJ IDEA tarball |
 | `intellij_idea_user` | `{{ ansible_user_id }}` | User to install plugins for. |
 
-## Installing plugins and themes
+## Installing plugins
 To install plugins for IntelliJ IDEA, define the `intellij_idea_plugins` variable.  
-```
+```yaml
 intellij_idea_plugins:
   - 10233 # Discord Integration
   - 17718 # GitHub Copilot
