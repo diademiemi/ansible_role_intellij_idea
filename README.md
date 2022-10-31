@@ -15,8 +15,8 @@ Plugins are installer per-user, so you will need to give `intellij_idea_user`, t
 ## Variables
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `intellij_idea_url_edition` | `IC` | Default version of IntelliJ IDEA to download. Valid options are: `[IC, UC]` |
-| `intellij_idea_url_version` | `2022.2.3` | Default version of IntelliJ IDEA to download |
+| `intellij_idea_edition` | `IC` | Default version of IntelliJ IDEA to download. Valid options are: `[IC, UC]` |
+| `intellij_idea_version` | `2022.2.3` | Default version of IntelliJ IDEA to download |
 | `intellij_idea_url` | See [defaults/main.yml](./defaults/main.yml) | Base URL for the IntelliJ IDEA tarball |
 | `intellij_idea_user` | `{{ ansible_user_id }}` | User to install plugins for. |
 
