@@ -3,7 +3,7 @@
   become: true
   ansible.builtin.get_url:
     url: "{{ intellij_idea_url }}"
-    dest: /tmp/idea{{ intellij_idea_url_edition }}-{{ intellij_idea_url_version }}.tar.gz
+    dest: /tmp/idea{{ intellij_idea_edition }}-{{ intellij_idea_version }}.tar.gz
     mode: 0644
     owner: root
     group: root
@@ -20,7 +20,7 @@
 - name: Extract IntelliJ IDEA to /opt
   become: true
   ansible.builtin.unarchive:
-    src: /tmp/idea{{ intellij_idea_url_edition }}-{{ intellij_idea_url_version }}.tar.gz
+    src: /tmp/idea{{ intellij_idea_edition }}-{{ intellij_idea_version }}.tar.gz
     dest: /opt/idea
     remote_src: true
     extra_opts:
@@ -48,7 +48,7 @@
   become: true
   become_user: "{{ intellij_idea_user }}"
   ansible.builtin.file:
-    path: "~/.local/share/JetBrains/Idea{{ intellij_idea_url_edition }}{{ intellij_idea_url_version | regex_search('\\d{1,}\\.\\d{1,}') }}/"
+    path: "~/.local/share/JetBrains/Idea{{ intellij_idea_edition }}{{ intellij_idea_version | regex_search('\\d{1,}\\.\\d{1,}') }}/"
     state: directory
     mode: 0755
     owner: "{{ intellij_idea_user }}"

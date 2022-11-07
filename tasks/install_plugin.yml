@@ -17,5 +17,5 @@
   become_user: "{{ intellij_idea_user }}"
   ansible.builtin.unarchive:
     src: "/tmp/intellij-plugin-{{ intellij_idea_plugin }}.zip"
-    dest: "~/.local/share/JetBrains/Idea{{ intellij_idea_url_edition }}{{ intellij_idea_url_version | regex_search('\\d{1,}\\.\\d{1,}') }}/"
+    dest: "~/.local/share/JetBrains/Idea{{ intellij_idea_edition }}{{ intellij_idea_version | regex_search('\\d{1,}\\.\\d{1,}') }}/"
     remote_src: true
