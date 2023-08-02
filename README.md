@@ -1,3 +1,7 @@
+# DEPRECATED
+
+Now included in my [JetBrains Collection](https://github.com/diademiemi/ansible_collection_diademiemi.jetbrains)
+
 # Ansible Role IntelliJ IDEA
 This is an Ansible role that installs IntelliJ IDEA on Linux. It uses the tarball from the official website so this role is not dependent on any package manager.  
 It can take a list of plugin IDs which it will automatically install.  
